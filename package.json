@@ -1,0 +1,58 @@
+{
+  "name": "vite-plugin-virtual-alias",
+  "version": "2.0.9",
+  "private": false,
+  "description": "",
+  "keywords": [
+    "vite-plugin-virtual-alias",
+    "vite",
+    "plugin",
+    "virtual",
+    "alias"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/AhMisty/vite-plugin-virtual-alias",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AhMisty/vite-plugin-virtual-alias"
+  },
+  "bugs": {
+    "url": "https://github.com/AhMisty/vite-plugin-virtual-alias/issues",
+    "email": "AhMisty@outlook.com"
+  },
+  "author": "AhMisty",
+  "type": "module",
+  "files": [
+    "./out",
+    "./docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./out/main.d.ts",
+      "default": "./out/main.js"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "git-cz": "latest",
+    "npm-run-all2": "latest",
+    "oxlint": "latest",
+    "prettier": "next",
+    "rolldown": "nightly",
+    "rolldown-plugin-dts": "latest",
+    "vite": "latest"
+  },
+  "scripts": {
+    "lint": "oxlint . --fix --ignore-path .gitignore",
+    "format": "prettier --write package.json rolldown.config.ts .prettierrc.json .oxlintrc.json ./src",
+    "check": "run-s lint format",
+    "git:add": "git add .",
+    "git:commit": "git-cz",
+    "git:push": "git push",
+    "git": "run-s check git:add git:commit git:push",
+    "build-only": "rolldown -c rolldown.config.ts",
+    "build": "run-s check build-only"
+  }
+}
