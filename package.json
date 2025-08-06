@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-virtual-alias",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "private": false,
   "description": "",
   "keywords": [
@@ -53,6 +53,7 @@
     "git:push": "git push",
     "git": "run-s check git:add git:commit git:push",
     "build-only": "rolldown -c rolldown.config.ts",
-    "build": "run-s check build-only"
+    "build": "run-s check build-only",
+    "push": "run-s build && npm publish"
   }
 }
