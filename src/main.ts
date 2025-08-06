@@ -1,18 +1,14 @@
 import type { Plugin } from 'vite'
 import path from 'node:path'
 import { promises as fs } from 'node:fs'
+import { PluginOptions } from './types'
 
 export const constants = {
   name: 'vite-plugin-virtual-alias',
 }
 
-export type PluginOption = {
-  maps?: Record<string, string>
-}
-
-export const virtual_alias = (options: PluginOption): Plugin => {
-  const { maps } = options
-  if (!maps || Object.keys(maps).length === 0) return { name: constants.name }
+export const virtual_alias = (options: PluginOptions): Plugin => {
+  if (!options || options.length === 0) return { name: constants.name }
   const current = {
     projectRoot: '',
   }
@@ -25,21 +21,18 @@ export const virtual_alias = (options: PluginOption): Plugin => {
     resolveId(id: string) {
       if (!current.projectRoot) return null
       const relativeId = path.relative(current.projectRoot, id).replace(/\\/g, '/')
-      if (!maps[relativeId]) return null
+      const option = options.find((option) => option.proto === relativeId)
+      if (!option) return null
+      if (option.resolve) return path.join(current.projectRoot, option.resolve)
       return id
     },
     async load(id: string) {
       if (!current.projectRoot) return null
       const relativeId = path.relative(current.projectRoot, id).replace(/\\/g, '/')
-      const sourceFile = maps[relativeId]
-      if (!sourceFile) return null
-      const absoluteSourcePath = path.resolve(current.projectRoot, sourceFile)
-      try {
-        return await fs.readFile(absoluteSourcePath, 'utf-8')
-      } catch (error) {
-        this.error(`Could not read the source file '${sourceFile}' for alias '${relativeId}'.`)
-        this.error(error as Error)
-      }
+      const option = options.find((option) => option.proto === relativeId)
+      if (!option) return null
+      if (option.source) return await fs.readFile(option.source, 'utf-8')
+      return null
     },
   }
 }
