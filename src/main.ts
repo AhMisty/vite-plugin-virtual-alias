@@ -7,7 +7,7 @@ export const constants = {
   name: 'vite-plugin-virtual-alias',
 }
 
-export const virtual_alias = (option?: PluginOption): Plugin => {
+export const virtualAlias = (option?: PluginOption): Plugin => {
   if (!option || option.mappings?.length === 0) return { name: constants.name }
   const current = {
     projectRoot: '',
