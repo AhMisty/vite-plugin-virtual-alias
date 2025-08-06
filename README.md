@@ -1,7 +1,7 @@
 # Vite Plugin Virtual Alias
 
 [![npm version](https://img.shields.io/npm/v/vite-plugin-virtual-alias.svg?style=flat-square)](https://www.npmjs.com/package/vite-plugin-virtual-alias)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-cyan.svg?style=flat-square)](https://github.com/AhMisty/vite-plugin-virtual-alias/blob/main/LICENSE)
 [![npm downloads](https://img.shields.io/npm/dm/vite-plugin-virtual-alias.svg?style=flat-square)](https://www.npmjs.com/package/vite-plugin-virtual-alias)
 
 <span style="color: #999">English</span> | [中文](./docs/zh-CN/README.md)
@@ -74,8 +74,4 @@ Contributions are welcome! Please feel free to submit issues and pull requests. 
 
 ## 📄 License
 
-[MIT](LICENSE) © [AhMisty](https://github.com/AhMisty)
-
-## License
-
-MIT © [AhMisty](https://github.com/AhMisty)
+[MIT](https://github.com/AhMisty/vite-plugin-virtual-alias/blob/main/LICENSE) © [AhMisty](https://github.com/AhMisty)

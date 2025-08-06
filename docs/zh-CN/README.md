@@ -83,4 +83,4 @@ console.log(config) // 将解析为 path/to/your/custom/config.alias.ts 文件
 
 ## 📄 许可证
 
-[MIT](LICENSE) © [AhMisty](https://github.com/AhMisty)
+[MIT](https://github.com/AhMisty/vite-plugin-virtual-alias/blob/main/LICENSE) © [AhMisty](https://github.com/AhMisty)
