@@ -1,85 +1,80 @@
 # Vite Plugin Virtual Alias
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![中文](https://img.shields.io/badge/中文-ZH-blue)](./docs/zh-CN/README.zh-CN.md)
+[![npm version](https://img.shields.io/npm/v/vite-plugin-virtual-alias.svg?style=flat-square)](https://www.npmjs.com/package/vite-plugin-virtual-alias)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![npm downloads](https://img.shields.io/npm/dm/vite-plugin-virtual-alias.svg?style=flat-square)](https://www.npmjs.com/package/vite-plugin-virtual-alias)
 
-A Vite plugin that provides virtual module aliasing with file content resolution, allowing you to create virtual modules that resolve to actual file contents at build time.
+<span style="color: #999">English</span> | [中文](./docs/zh-CN/README.md)
 
-## Features
+A lightweight Vite plugin that provides powerful virtual alias functionality, allowing you to map custom virtual paths to actual files in your project during the build process.
 
-- 🚀 Create virtual module aliases that resolve to actual file contents
-- 🔄 Supports dynamic resolution based on project root
-- ⚡ Lightweight and fast
-- 🔧 TypeScript support out of the box
+## 📦 Installation
 
-## Installation
-
-Using npm:
+Install with your favorite package manager:
 
 ```bash
+# Using npm
 npm install -D vite-plugin-virtual-alias
-```
 
-Using yarn:
-
-```bash
+# Using yarn
 yarn add -D vite-plugin-virtual-alias
-```
 
-Using pnpm:
-
-```bash
+# Using pnpm
 pnpm add -D vite-plugin-virtual-alias
 ```
 
-## Usage
+## 🚀 Basic Usage
 
-In your `vite.config.ts`:
+### Configuration
+
+Add the plugin to your Vite configuration:
 
 ```typescript
+// vite.config.ts
 import { defineConfig } from 'vite'
-import { virtual_alias } from 'vite-plugin-virtual-alias'
+import { virtualAlias } from 'vite-plugin-virtual-alias'
 
 export default defineConfig({
   plugins: [
-    virtual_alias({
-      maps: {
-        // Virtual module path (relative to project root) => Actual file path (relative to project root)
-        'virtual:config': 'src/config.json',
-        'virtual:styles': 'src/styles/theme.css',
-        // You can map to any file type
-        'virtual:content': 'content/markdown/content.md',
-      },
+    virtualAlias({
+      mappings: [
+        {
+          // Virtual path
+          proto: 'virtual:config.ts',
+          // Mapped path
+          resolve: 'path/to/your/custom/config.alias.ts',
+          // or
+          // source: 'path/to/your/custom/config.alias.ts',
+        },
+      ],
     }),
   ],
 })
 ```
 
-Then in your code, you can import these virtual modules:
+### Example Usage
+
+After configuration, you can use the virtual alias in your code:
 
 ```typescript
-import config from 'virtual:config'
-import styles from 'virtual:styles'
-import content from 'virtual:content'
+// Import using virtual alias
+import config from 'virtual:config.ts'
 
-// Use the imported content
-console.log(config, styles, content)
+console.log(config) // Will be resolved to path/to/your/custom/config.alias.ts
 ```
 
-## API
+## 🔍 How It Works
 
-### `virtual_alias(options: PluginOption): Plugin`
+- **resolve**: Uses Vite's `resolveId` hook for path mapping, which affects the built file names
+- **source**: Uses the `load` hook to directly return file content, keeping the original file names
 
-#### Options
+## 🤝 Contributing
 
-- `maps` (Record<string, string>): An object where keys are virtual module paths (relative to project root) and values are actual file paths (relative to project root)
+Contributions are welcome! Please feel free to submit issues and pull requests. For major changes, please open an issue first to discuss what you would like to change.
 
-## How It Works
+## 📄 License
 
-1. The plugin runs in the `pre` phase of Vite's plugin pipeline
-2. When an import matches one of the configured virtual paths, the plugin intercepts it
-3. The plugin reads the actual file content and returns it as the module content
-4. If the file doesn't exist, an error is thrown during build
+[MIT](LICENSE) © [AhMisty](https://github.com/AhMisty)
 
 ## License
 
