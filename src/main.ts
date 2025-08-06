@@ -20,16 +20,22 @@ export const virtualAlias = (option?: PluginOption): Plugin => {
     },
     resolveId(id: string) {
       if (!current.projectRoot) return null
-      const relativeId = path.relative(current.projectRoot, id).replace(/\\/g, '/')
-      const mapping = option?.mappings?.find((mapping) => mapping.proto === relativeId)
+      const mapping = option?.mappings?.find(
+        (mapping) =>
+          path.join(current.projectRoot, mapping.proto).replaceAll('\\', '/') ===
+          id.replaceAll('\\', '/'),
+      )
       if (!mapping) return null
       if (mapping.resolve) return path.join(current.projectRoot, mapping.resolve)
       return id
     },
     async load(id: string) {
       if (!current.projectRoot) return null
-      const relativeId = path.relative(current.projectRoot, id).replace(/\\/g, '/')
-      const mapping = option?.mappings?.find((mapping) => mapping.proto === relativeId)
+      const mapping = option?.mappings?.find(
+        (mapping) =>
+          path.join(current.projectRoot, mapping.proto).replaceAll('\\', '/') ===
+          id.replaceAll('\\', '/'),
+      )
       if (!mapping) return null
       if (mapping.source) return await fs.readFile(mapping.source, 'utf-8')
       return null
